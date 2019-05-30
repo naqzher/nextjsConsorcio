@@ -1,15 +1,11 @@
-const Index = () => (
-  <div>
-    <p>Hello Next.js</p>
-  </div>
-)
+import LayoutAuth from '../componentes/Layouts/LayoutAuth';
+import Login from '../componentes/Auth/Login';
+import fetch from 'isomorphic-unfetch';
 
-export default Index
+const Index = props => (
+  <LayoutAuth>
+    <Login />
+  </LayoutAuth>
+);
 
-// export default function About() {
-//   return (
-//     <div>
-//       <p>This is the about page</p>
-//     </div>
-//   )
-// }
+export default Index;

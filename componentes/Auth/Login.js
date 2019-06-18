@@ -15,7 +15,7 @@ class Login extends Component {
 
     login = async e => {
         e.preventDefault();
-        
+
         const datos = {
             email: this.state.email,
             password: this.state.password
@@ -33,6 +33,32 @@ class Login extends Component {
         } catch (error) {
             
         }
+
+        // try {
+        //     const response = await fetch(url, {
+        //       method: 'POST',
+        //       headers: { 'Content-Type': 'application/json' },
+        //       body: JSON.stringify({ username })
+        //     })
+        //     if (response.ok) {
+        //       const { token } = await response.json()
+        //       login({ token })
+        //     } else {
+        //       console.log('Login failed.')
+        //       // https://github.com/developit/unfetch#caveats
+        //       let error = new Error(response.statusText)
+        //       error.response = response
+        //       return Promise.reject(error)
+        //     }
+        //   } catch (error) {
+        //     console.error(
+        //       'You have an error in your code or there are Network issues.',
+        //       error
+        //     )
+        //     throw new Error(error)
+        //   }
+
+
 
     }
 

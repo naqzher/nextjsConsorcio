@@ -1,26 +1,29 @@
 import React, { Component } from "react";
 import fetch from "isomorphic-unfetch";
+import departamentosService from '../../../services/departamentosService';
 
 export default class Create extends Component {
-  state = {
-    nombres: "",
-    apellidos: "",
-    telefono_celular: "",
-    telefono_fijo: "",
-    dni: "",
-    email: "",
-    piso: "",
-    departamento: "",
-    allDptos: null
-  };
 
-  componentDidMount = () => {
-    fetch("http://localhost:5000/getDptos")
-      .then(response => response.json())
-      .then(data => this.setState({ allDptos: data }))
-      .catch(function(error) {
-        console.log("Request failed", error);
-      });
+  constructor(props){
+    super(props);
+    this.state = {
+      nombres: "",
+      apellidos: "",
+      telefono_celular: "",
+      telefono_fijo: "",
+      dni: "",
+      email: "",
+      departamento_id: "",
+      tipo_usuario: 1,
+      allDepartamentos: [],
+    }
+  }
+
+  async componentDidMount(){
+    const allDepartamentos = await departamentosService();
+    this.setState({
+      allDepartamentos
+    });
   };
 
   // Obtengo datos por tecleada y seteo el state
@@ -30,7 +33,7 @@ export default class Create extends Component {
 
   usuarioStore = async e => {
     e.preventDefault();
-    // console.log(state)
+
     let url = `http://localhost:5000/insertarUsuario`;
 
     await fetch(url, {
@@ -46,7 +49,6 @@ export default class Create extends Component {
   };
 
   render() {
-    console.log(this.state.allDptos);
     return (
       <div className="row">
         <div className="contenedor col-md-12">
@@ -126,35 +128,20 @@ export default class Create extends Component {
                   />
                 </div>
                 {/* FIN EMAIL */}
-                {/* PISO */}
-                <div className="form-group col-md-6 mb-0">
-                  <label htmlFor="piso">Piso</label>
-                  <select
-                    className="form-control"
-                    id="piso"
-                    onChange={this.handleChange("piso")}
-                  >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-                {/* FIN PISO */}
                 {/* DEPARTAMENTO */}
-                <div className="form-group col-md-6 mb-0">
+                <div className="form-group col-md-12 mb-0">
                   <label htmlFor="departamento">Departamento</label>
                   <select
                     className="form-control"
-                    id="departamento"
-                    onChange={this.handleChange("departamento")}
+                    id="departamento_id"
+                    onChange={this.handleChange("departamento_id")}
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                  <option value="">Selecione un departamento</option>
+                  {
+                    this.state.allDepartamentos.map(departamento => {
+                      return <option key={departamento.id} value={departamento.id} >{departamento.pisoYDpto}</option>
+                    })
+                  }
                   </select>
                 </div>
                 {/* FIN DEPARTAMENTO */}

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import fetch from "isomorphic-unfetch";
-import departamentosService from '../../../services/departamentosService';
+// import fetch from "isomorphic-unfetch";
+import departamentosService from "../../../services/departamentosService";
 
 export default class Create extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       nombres: "",
@@ -15,16 +14,16 @@ export default class Create extends Component {
       email: "",
       departamento_id: "",
       tipo_usuario: 1,
-      allDepartamentos: [],
-    }
+      allDepartamentos: []
+    };
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     const allDepartamentos = await departamentosService();
     this.setState({
       allDepartamentos
     });
-  };
+  }
 
   // Obtengo datos por tecleada y seteo el state
   handleChange = input => e => {
@@ -136,12 +135,14 @@ export default class Create extends Component {
                     id="departamento_id"
                     onChange={this.handleChange("departamento_id")}
                   >
-                  <option value="">Selecione un departamento</option>
-                  {
-                    this.state.allDepartamentos.map(departamento => {
-                      return <option key={departamento.id} value={departamento.id} >{departamento.pisoYDpto}</option>
-                    })
-                  }
+                    <option value="">Selecione un departamento</option>
+                    {this.state.allDepartamentos.map(departamento => {
+                      return (
+                        <option key={departamento.id} value={departamento.id}>
+                          {departamento.pisoYDpto}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 {/* FIN DEPARTAMENTO */}
